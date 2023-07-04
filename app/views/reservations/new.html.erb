@@ -1,0 +1,63 @@
+<br>
+<div class="reservation-container">
+  <div class ="reservation-form">
+    <div class="heading-section">
+      <h4>RESERVATION INFORMATION</h4>
+    </div>
+
+    <%= simple_form_for [@reservation], html: {
+                                          data: {
+                                          controller: "datepicker alert",
+                                          action: "turbo:submit-end->alert#initSweetalert",
+                                          after_save_url: reservations_url
+                                          } } do |f|%>
+    <div class="top-section">
+      <div class="top-section-small-fields">
+        <%= f.input :covers,
+                    input_html: { data: { datepicker_target: "coversInput", alert_target: "coversInput" } },
+                    label: "Total of clients",
+                    class: "field-small" %>
+      <%= f.input :date,
+            as: :string,
+            class: "field-small",
+            label: "Reservation Date",
+            input_html: { id: "date-input", data: { datepicker_target: "dateInput", alert_target: "dateInput" } } %>
+      </div>
+      <div>
+        <%= f.input :time_slot_id, collection: [],
+                    include_blank: true,
+                    class: "field-large",
+                    label: "Time",
+                    :prompt => 'Select time' ,
+                    input_html: { data: { datepicker_target: 'timeSlotSelect', alert_target: "timeInput", action: "change->alert#test" } } %>
+      </div>
+    </div>
+    <div class="bottom-section mt-3">
+      <% if params[:walk_in] %>
+        <%= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+        <%= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+        <%= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+        <%= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+        <%= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+        <%= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+        <%= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+      <% else %>
+        <div class="heading-section-bottom">
+          <h4> CLIENT INFORMATION </h4>
+        </div>
+          <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false %>
+          <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false  %>
+          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+          <%= f.input :reservation_notes, class: "field-xlarge", placeholder: 'Reservation notes', label:false  %>
+          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+      <% end %>
+    </div>
+    <div class="button-section">
+      <%= f.submit "SUBMIT", class: "reservation-form-button" %>
+    </div>
+      <% end %>
+  </div>
+</div>
+<br>
+<br>

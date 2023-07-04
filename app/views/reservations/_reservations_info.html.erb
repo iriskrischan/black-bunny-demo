@@ -1,0 +1,93 @@
+<div class="reservations-info">
+  <div class="header">
+    <h2>CURRENT RESERVATION</h2>
+  </div>
+  <% if @reservation_edit %>
+    <div class="form-active">
+      <%= simple_form_for [@reservation_edit], html: { data: { controller: "update" } }, method: "PATCH" do |f|%>
+        <div class="top-section">
+          <div class="top-section-small-fields reservation-info row row-cols-2">
+            <%= f.input :covers,
+                        input_html: { data: { update_target: "coversInput2" } },
+                        class: "field-small col", label: false %>
+            <%= f.input :date,
+                        as: :string,
+                        class: "field-small col",
+                        label: false,
+                        input_html: { id: "date-input", data: { update_target: "dateInput2" } } %>
+          </div>
+          <div class="mb-3 select optional reservation_timeslot-current">
+            <label class="form-label select optional" for="reservation_time_slot_id">Please choose the date to update the time slot</label>
+            <select class="form-select is-valid select" disabled="disabled"><option selected="selected"><%= @reservation_edit.time_slot.start_time.strftime("%I:%M%p") %></option></select>
+          </div>
+          <div class="d-none reservation-timeslot">
+            <%= f.input :time_slot_id, collection: [],
+                        class: "field-large",
+                        label: "Please choose the date to update the time slot",
+                        input_html: { data: { update_target: 'timeSlotSelect2' }} %>
+          </div>
+        </div>
+        <div class="bottom-section mt-3 guest-info">
+          <h2>GUEST INFORMATION</h2>
+          <div class="full_name row row-cols-2">
+            <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+            <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col"  %>
+          </div>
+          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+          <%= f.input :reservation_notes, class: "field-large", placeholder: 'Reservation notes', label:false  %>
+          <%= f.input :dietary_requirements, class: "field-large", placeholder: 'Dietary requirements', label:false  %>
+        </div>
+        <div class="button-section">
+          <%= f.submit "UPDATE", class: "reservation-form-button" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @reservations_dates %>
+    <% @reservations_dates.each do |res| %>
+      <div data-id="<%= res.id %>" class="d-none">
+        <%= simple_form_for [res], html: { data: { controller: "update" } }, method: "PATCH" do |f|%>
+          <div class="top-section">
+            <div class="top-section-small-fields reservation-info row row-cols-2">
+              <%= f.input :covers,
+                          input_html: { data: { update_target: "coversInput2" } },
+                          class: "field-small col", label: false %>
+              <%= f.input :date,
+                          as: :string,
+                          class: "field-small col",
+                          label: false,
+                          input_html: { id: "date-input", data: { update_target: "dateInput2" } } %>
+            </div>
+            <div class="mb-3 select optional reservation_timeslot-current">
+              <label class="form-label select optional" for="reservation_time_slot_id">Please choose the date to update the time slot</label>
+              <select class="form-select is-valid select" disabled="disabled"><option selected="selected"><%= res.time_slot.start_time.strftime("%I:%M%p") %></option></select>
+            </div>
+            <div class="d-none reservation-timeslot">
+              <%= f.input :time_slot_id, collection: [],
+                          class: "field-large",
+                          label: "Please choose the date to update the time slot",
+                          input_html: { data: { update_target: 'timeSlotSelect2' }} %>
+            </div>
+          </div>
+          <div class="bottom-section mt-3 guest-info">
+            <h2>GUEST INFORMATION</h2>
+            <div class="full_name row row-cols-2">
+              <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+              <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col" %>
+            </div>
+            <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+            <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+            <%= f.input :reservation_notes, class: "field-large", placeholder: 'Reservation notes', label:false  %>
+            <%= f.input :dietary_requirements, class: "field-large", placeholder: 'Dietary requirements', label:false  %>
+          </div>
+          <div class="button-section">
+            <%= f.submit "UPDATE", class: "reservation-form-button" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

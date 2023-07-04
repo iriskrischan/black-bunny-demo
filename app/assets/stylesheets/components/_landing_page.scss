@@ -1,0 +1,160 @@
+.my-container {
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
+.landing-container-top {
+  background-image: url("landing_background.png");
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#first_image {
+  top: 160px;
+  left: 220px;
+  width: 300px;
+  position: absolute;
+  opacity: 80%;
+}
+
+#second_image {
+  left: 500px;
+  width: 177px;
+  position: absolute;
+  opacity: 80%;
+  top: 160px;
+}
+
+#slogan {
+  top: 350px;
+  left: 220px;
+  position: absolute;
+}
+
+h2 {
+  color: #071e21;
+  // opacity: 75%;
+  font-size: 29px;
+}
+
+.landing-container-bottom {
+  background-image: url("landing_background_2.png");
+  background-color: #E8E8E8;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.text-container {
+  font-size: 35px;
+  width: 370px;
+  top: 230px;
+  right: 85px;
+  position: absolute;
+  text-align: justify;
+  opacity: 75%;
+}
+
+.text-container h2 {
+  font-size: 25px;
+  color: #071e21;
+}
+
+.landing-navbar-button-demo {
+  padding: 10px 30px;
+  background-color: #68CADE;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  position: absolute;
+  text-shadow: 0px 2px 2px 2px #00000026;
+  top: 400px;
+  left: 220px;
+}
+
+.landing-navbar-button-demo:hover {
+  background-color: #175c6a;
+  opacity: 80%;
+  color: white;
+}
+
+.text-bubble-small {
+  background-color: white;
+  opacity: 70%;
+  padding: 15px 35px;
+  color: #071e21;
+  border: 1px;
+  border-color: #A6A6A6;
+  box-shadow: 0px 0px 1px 1px #00000026;
+  border-radius: 20px;
+  margin: 0px auto;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.text-bubble-small h3 {
+  font-size: 26px;
+  color: #071e21;
+}
+
+.text-bubble-small h4 {
+  font-size: 20px;
+  color: #071e21;
+}
+
+.text-bubble-wrap {
+  width: 100%;
+}
+
+.text-bubble-large {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+}
+
+.text-bubble-card {
+  background-color: white;
+  opacity: 75%;
+  padding: 0px 20px;
+  color: #071e21;
+  border: 1px;
+  border-color: #A6A6A6;
+  box-shadow: 0px 0px 1px 1px #00000026;
+  border-radius: 20px;
+  margin: 0px auto;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.text-bubble-card h4 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #071e21;
+}
+
+.text-bubble-card li {
+  font-size: 16px;
+  text-align: justify;
+  color: #071e21;
+}
+
+.text-bubble-card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.fa-2xl {
+  position: absolute;
+  right: 165px;
+  top: 318px;
+}
+
+.feature-list {
+  display: block;
+  text-align: left;
+}

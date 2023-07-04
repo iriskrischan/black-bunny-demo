@@ -1,0 +1,63 @@
+.reservations_card {
+  width: calc(50% - 44px); /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  top: 80px;
+  bottom: 8px;
+  background-color: white; /* White */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  border-radius: 20px; /* Corner radius */
+  box-shadow: 0px 0px 1px 1px #00000026;
+  z-index: 9;
+
+  .modal {
+    --bs-modal-border-radius: 20px;
+    --bs-modal-width: 400px;
+    font-family: 'Intel', sans-serif;
+    font-size: 18px;
+  }
+
+  .modal-body {
+    background-color:#E8E8E8;
+    border-radius: 20px;
+  }
+
+}
+
+.icon-highlighted {
+  background: #e8e8e8;
+  transition: background 0.3s ease;
+}
+
+
+.reservation-icon {
+  img {
+    cursor: pointer;
+  }
+}
+
+.status-modal {
+  transform: translate(-20%, 38%);
+}
+
+.status-modal-backdrop {
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+}
+
+.form-select.is-valid {
+  border-color: #e8e8e8;
+  background-image: none;
+}
+
+.client-name {
+  border-bottom: 1px solid #00000026;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}

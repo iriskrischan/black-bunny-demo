@@ -1,0 +1,130 @@
+<div data-controller="clients-highlight">
+  <div>
+    <%= render "side_navbar", start_date: @start_date %>
+    <%= render "clients_top_navbar" %>
+  </div>
+
+  <div class="main row" data-controller="clients">
+    <div class="row align-items-start">
+
+      <div class="clients-card" id="client-index">
+        <div class="search-clients-form">
+          <%= form_with url: clients_path, method: :get, class: "d-flex" do %>
+            <%= text_field_tag :query,
+              params[:query],
+              class: "form-control",
+              placeholder: "Find a client"
+            %>
+            <%= submit_tag "SEARCH", class: "btn-search" %>
+          <% end %>
+        </div>
+        <div class="client-card-separator">
+          <h2>GUESTS</h2>
+        </div>
+        <div class="client-card">
+          <ul>
+            <% @clients_by_email.each_pair do |email, res| %>
+              <div class="client-card d-flex align-items-end" data-clients-target="card" data-action="click->clients#clientsInfo" data-email="<%= email %>">
+                <div class="client-icon">
+                  <%= image_tag("clients.png") %>
+                </div>
+                <div class="col">
+                  <h5><%= res.first.first_name %> <%= res.first.last_name %></h5>
+                </div>
+                <div class="right-container d-flex align-items-left">
+                  <div class="button-container col phone_card client-call">
+                    <button class="image-button">
+                      <%= image_tag("phone-volume-solid.svg") %>
+                      <span><%= res.first.phone_number %></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="client-container">
+          <div class="all-clients-container">
+            <div class ="all-clients-form">
+              <div class="all-clients-heading-section">
+                <h4>GUEST INFORMATION</h4>
+              </div>
+              <% @clients_by_email.each_pair do |email, res| %>
+                <% if @clients_by_email.first.first === email %>
+
+                  <div class="client-profile client-active" data-res-email="<%= email %>">
+                    <%= simple_form_for [res.first], html: {
+                                                        data: {
+                                                        controller: "datepicker alert",
+                                                        action: "turbo:submit-end->alert#initSweetalert",
+                                                        after_save_url: reservations_url
+                                                        } } do |f|%>
+                      <div class="all-clients-bottom-section container text-center">
+                        <% if params[:walk_in] %>
+                          <%= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+                          <%= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+                          <%= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+                          <%= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+                        <% else %>
+                          <div class="full_name row row-cols-2">
+                            <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+                            <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col"  %>
+                          </div>
+                          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+                          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+                          <%= f.input :reservation_notes, class: "field-xlarge", placeholder: 'Reservation notes', label:false  %>
+                          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                <% else %>
+
+                  <div class="client-profile d-none" data-res-email="<%= email %>">
+                    <%= simple_form_for [res.first], html: {
+                                                        data: {
+                                                        controller: "datepicker alert",
+                                                        action: "turbo:submit-end->alert#initSweetalert",
+                                                        after_save_url: reservations_url
+                                                        } } do |f|%>
+                      <div class="all-clients-bottom-section container text-center">
+                        <% if params[:walk_in] %>
+                          <%= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+                          <%= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+                          <%= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+                          <%= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+                        <% else %>
+                          <div class="full_name row row-cols-2">
+                            <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+                            <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col"  %>
+                          </div>
+                          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+                          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+                          <%= f.input :reservation_notes, class: "field-xlarge", placeholder: 'Reservation notes', label:false  %>
+                          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

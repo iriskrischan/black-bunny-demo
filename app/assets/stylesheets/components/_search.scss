@@ -1,0 +1,46 @@
+.search-form {
+
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+
+  form {
+
+    input {
+      border-radius: 20px;
+      font-family: 'Intel', sans-serif;
+      margin-right: 8px;
+    }
+
+    .form-control:focus {
+      border-color: #ced4da; /* default B5 color or set your own color*/
+      border: 1px solid #ced4da !important; /* if you want to remove borders at all*/
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+  }
+}
+
+.search-clients-form {
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+
+  form {
+
+    input {
+      border-radius: 20px;
+      font-family: 'Intel', sans-serif;
+      margin-right: 8px;
+    }
+
+    .form-control:focus {
+      border-color: #ced4da; /* default B5 color or set your own color*/
+      border: 1px solid #ced4da !important; /* if you want to remove borders at all*/
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+  }
+}

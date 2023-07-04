@@ -1,0 +1,61 @@
+<%= render "landing_navbar" %>
+<div class="landing-container-top">
+  <%= image_tag "black_bunny_text_logo.png", id: "first_image" %>
+  <%= image_tag "logo.png", id: "second_image" %>
+  <h2 id="slogan"> Leap into Restaurant Success </h2>
+  <%= link_to "BOOK A DEMO", "#", class: "landing-navbar-button-demo" %>
+  <div class="text-container">
+    <h2> <strong> Black Bunny </strong> is a reservation platform for hospitality operators, which enables <strong>improving
+    marketing perfomance </strong> and <strong>creating fast & seamless experience </strong>
+    for you and your customers.</h2>
+    <br>
+    <h2> Read more</h2>
+    <br>
+    <a href="#bottom-container"> <i class="fa-solid fa-arrow-turn-down fa-fade fa-2xl" style="color: #69cade;"></i> </a>
+    <br>
+  </div>
+</div>
+<div class="landing-container-bottom">
+  <div class="my-container">
+    <div class="text-bubble-large">
+    <div></div>
+      <div class="text-bubble-wrap">
+        <div class="text-bubble-small">
+          <h3>Why Black Bunny?</h3>
+        </div>
+      </div>
+      <div></div>
+      <div class="text-bubble-card">
+        <%= image_tag "text-bubble_1.png" %>
+        <h4> Improve Marketing Perfomance </h4>
+        <ul class="feature-list">
+          <li> Compatible with GA4 & GTM </li>
+          <li>100% visibility of users' behaviour </li>
+          <li> <strong> No more lost data </strong></li>
+        </ul>
+      </div>
+      <div class="text-bubble-card">
+        <%= image_tag "text_bubble_3.png" %>
+        <h4> Fast & Seamless Experience </h4>
+        <ul class="feature-list">
+          <li>Most up-to-date technology</li>
+          <li>Fast and reliable</li>
+          <li> <strong>Requires minimum loading time </strong> </li>
+        </ul>
+      </div>
+      <div class="text-bubble-card">
+        <%= image_tag "text_bubble_2.png" %>
+        <h4> We are Hospitality Professionals </h4>
+          <ul class="feature-list">
+            <li>Built with best practices in mind</li>
+            <li>Meets industry needs & latest trends</li>
+            <li> <strong> Created by the industry professionals </strong> </li>
+          </ul>
+      </div>
+    <a id="bottom-container"></a>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+<%= render "landing_footer" %>

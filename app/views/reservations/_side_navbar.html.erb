@@ -1,0 +1,45 @@
+<div class="sidenav sidenav-text">
+  <%= link_to reservations_path(:start_date => "?#{Date.today}") do %>
+    <div id="icon-link" style="margin-bottom: 16px;">
+      <%= image_tag("logo.png",  width: 64, height: 64) %>
+    </div>
+  <% end %>
+  <%= link_to dashboard_path do %>
+    <div id="icon-link" data-dash-highlight-target="dashIcon">
+      <%= image_tag("dashboard_icon.png",  width: 64, height: 64) %>
+      <p>Dashboard</p>
+    </div>
+  <% end %>
+  <%= link_to reservations_path(:start_date => "?#{Date.today}") do %>
+    <div id="icon-link" data-res-highlight-target="resIcon">
+      <%= image_tag("reservation_icon.png",  width: 64, height: 64) %>
+      <p>Reservations</p>
+    </div>
+  <% end %>
+  <%= link_to clients_path do %>
+    <div id="icon-link" data-clients-highlight-target="clientsIcon">
+      <%= image_tag("clients.png",  width: 64, height: 64) %>
+      <p>Guests</p>
+    </div>
+  <% end %>
+  <%# link_to "#" do %>
+    <%# <div id="icon-link"> %>
+      <%# image_tag("config_icon.png",  width: 64, height: 64) %>
+      <%# <p>Settings</p> %>
+    <%# </div> %>
+  <%# end %>
+  <%= link_to restaurant_path(current_user.restaurant) do %>
+    <div id="icon-link">
+      <%= image_tag("preview_icon.png",  width: 64, height: 64) %>
+      <p>Preview</p>
+    </div>
+  <% end %>
+  <div id="bottom">
+    <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
+      <div>
+        <%= image_tag("logout_icon.png",  width: 64, height: 64) %>
+        <p>Logout</p>
+      </div>
+    <% end %>
+  </div>
+</div>

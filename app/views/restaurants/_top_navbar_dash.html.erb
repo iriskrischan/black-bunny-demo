@@ -1,0 +1,14 @@
+<div class="top_navbar_dash container-fluid">
+  <div>
+    <%= month_calendar do |date| %>
+      <%= date %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to image_tag("walking_icon.png"), new_reservation_path, id: "btn-walking" %>
+  </div>
+  <div>
+    <%= link_to image_tag("booking_icon.png"), new_reservation_path, id: "btn-booking" %>
+  </div>
+</div>

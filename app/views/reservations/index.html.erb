@@ -1,0 +1,14 @@
+<div data-controller="res-highlight" >
+  <div>
+    <%= render "side_navbar", start_date: @start_date %>
+    <%= render "top_navbar_res" %>
+  </div>
+  <div class="main">
+    <div>
+      <%= render "reservations_card", start_date: @start_date %>
+    </div>
+    <div>
+      <%= render "reservations_info", reservations: @reservations %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+<div data-controller="clients-highlight">
+  <div>
+    <%= render "side_navbar", start_date: @start_date %>
+    <%= render "clients_top_navbar" %>
+  </div>
+
+  <div class="main row" data-controller="clients">
+    <div class="row align-items-start" data-controller="clients-page-highlight">
+
+      <div class="clients-card">
+        <div class="search-clients-form bg-white">
+          <%= form_with url: clients_path, method: :get, class: "d-flex" do %>
+            <%= text_field_tag :query,
+              params[:query],
+              class: "form-control",
+              placeholder: "Find a client"
+            %>
+            <%= submit_tag "SEARCH", class: "btn-search" %>
+          <% end %>
+        </div>
+        <div class="client-card-separator">
+          <h2>GUESTS</h2>
+        </div>
+        <% @reservations.each_pair do |email, res| %>
+          <div class="client-card d-flex align-items-end"
+            data-clients-target="card"
+            data-action="click->clients#clientsInfo"
+            data-email="<%= email %>"
+          >
+            <div class="client-icon">
+              <%= image_tag("client_icon.png") %>
+            </div>
+            <div class="col">
+              <h5><%= res.first.first_name %> <%= res.first.last_name %></h5>
+            </div>
+            <div class="right-container">
+              <button class="image-button">
+                <%= image_tag("phone_icon.png") %>
+                <span><%= res.first.phone_number %></span>
+              </button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col">
+        <div class="client-container">
+          <div class="all-clients-container">
+            <div class ="all-clients-form">
+              <div class="all-clients-heading-section">
+                <h4>GUEST INFORMATION</h4>
+              </div>
+              <% @reservations.each_pair do |email, res| %>
+
+                <% if @reservations.first.first === email %>
+
+                  <div class="client-profile client-active" data-res-email="<%= email %>">
+                    <%= simple_form_for [res.first] do |f|%>
+                      <div class="bottom-section text-center">
+                        <% if params[:walk_in] %>
+                          <%= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+                          <%= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+                          <%= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+                          <%= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+                        <% else %>
+                          <div class="full_name row row-cols-2">
+                            <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+                            <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col"  %>
+                          </div>
+                          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+                          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+                          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                <% else %>
+
+                  <div class="client-profile d-none" data-res-email="<%= email %>">
+                    <%= simple_form_for [res.first] do |f|%>
+                      <div class="bottom-section text-center">
+                        <% if params[:walk_in] %>
+                          <%= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+                          <%= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+                          <%= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+                          <%= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+                          <%= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+                        <% else %>
+                          <div class="full_name row row-cols-2">
+                            <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false, class:"col" %>
+                            <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false, class:"col"  %>
+                          </div>
+                          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+                          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+                          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+
+              <% end %>
+              <div class="client-heading-section">
+                <h4>RESERVATION HISTORY</h4>
+              </div>
+
+              <div class="booking-container">
+                <% @reservations.each_pair do |email, res| %>
+                  <% if @reservations.first.first === email %>
+
+                    <div class="client-profile client-active" data-res-email="<%= email %>">
+                      <% res.each do |resinfo| %>
+                        <div class="history-card client-item d-flex align-items-center">
+                          <div class="client-icon">
+                            <%= image_tag("history_icon.png") %>
+                          </div>
+                          <div>
+                            <%= resinfo.date %> | <%= resinfo.covers %> persons
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+
+                  <% else %>
+
+                    <div class="client-profile d-none" data-res-email="<%= email %>">
+                      <% res.each do |resinfo| %>
+                        <div class="history-card client-item d-flex align-items-center">
+                          <div class="client-icon">
+                            <%= image_tag("history_icon.png") %>
+                          </div>
+                          <div>
+                            <%#= resinfo.time_slot.start_time.strftime("%I:%M%p") %>
+                            <%= resinfo.date %> | <%= resinfo.covers %> persons
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

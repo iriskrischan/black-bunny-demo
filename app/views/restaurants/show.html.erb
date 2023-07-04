@@ -1,0 +1,106 @@
+<nav class="navbar fixed-top navbar-light bg-transparent mt-2 p-0">
+  <form class="container-fluid justify-content-between pe-0">
+    <%= image_tag "logo_white_2.png", class: "d-block", id: "logo" %>
+    <h3> <i class="fa-solid fa-phone" style="color: #ffffff;"> </i> <strong>+44 21 963 16 62 </strong></h3>
+    <%#= link_to "Book a table", new_reservation_path, class: "btn btn-danger btn-lg text-white me-5" %>
+    <button type="button" id="btn-preview" data-bs-toggle="modal" data-bs-target="#bookingModal" class="btn btn-danger btn-lg text-white me-5">
+     Book a table
+    </button>
+  </form>
+</nav>
+<div class="banner">
+    <div class="app-title">
+      <h1><em>Swiss cuisine</h1>
+      <h2>in a historic place</em></h2>
+    </div>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+        <figure class="overlay">
+        <figcaption class="z-50"></figcaption>
+          <%= image_tag "banner_3.jpg", class: "d-block"; %>
+        </figure>
+        </div>
+        <div class="carousel-item">
+          <figure class="overlay">
+          <figcaption class="z-50"></figcaption>
+            <%= image_tag "banner_4.jpg", class: "d-block"%>
+            </figure>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<nav class="navbar fixed-bottom bg-body-tertiary d-flex justify-content-end mx-5 my-3">
+  <%= link_to "Back to Reservations", reservations_path(:start_date => "?#{Date.today}"), class: "btn btn-outline-light" %>
+</nav>
+
+<!-- Modal BOOKING-->
+<div class="reservation-container new-reservation">
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="heading-section" id="exampleModalLabel">RESERVATION INFORMATION</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for [@reservation], html: {
+                                            data: {
+                                            controller: "datepicker alert",
+                                            action: "turbo:submit-end->alert#initSweetalert",
+                                            after_save_url: reservations_url
+                                            } } do |f|%>
+            <div class="top-section">
+              <div class="top-section-small-fields">
+                <%= f.input :covers,
+                  input_html: { data: { datepicker_target: "coversInput", alert_target: "coversInput" } },
+                  label: "Total of clients",
+                  class: "field-small" %>
+                <%= f.input :date,
+                  as: :string,
+                  class: "field-small",
+                  label: "Reservation Date",
+                  input_html: { id: "date-input", data: { datepicker_target: "dateInput", alert_target: "dateInput" } } %>
+              </div>
+              <div>
+                <%= f.input :time_slot_id, collection: [],
+                  include_blank: true,
+                  class: "field-large",
+                  label: "Time",
+                  :prompt => 'Select time' ,
+                  input_html: { data: { datepicker_target: 'timeSlotSelect', alert_target: "timeInput", action: "change->alert#test" } } %>
+              </div>
+            </div>
+    <div class="bottom-section mt-2">
+      <%# if params[:walk_in] %>
+        <%#= f.input :first_name, :as => :hidden, class: "field-small",  :input_html => {:value => "Walk"} , label:false %>
+        <%#= f.input :last_name, :as => :hidden, class: "field-small", :input_html => {:value => "In"}, label:false  %>
+        <%#= f.input :email, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"}, label:false  %>
+        <%#= f.input :phone_number, :as => :hidden, class: "field-large", :input_html => {:value => "N/A"} , label:false  %>
+        <%#= f.input :reservation_notes, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+        <%#= f.input :dietary_requirements, :as => :hidden, class: "field-xlarge", :input_html => {:value => "N/A"}, label:false  %>
+        <%#= f.input :status, :as => :hidden, class: "field-xlarge", :input_html => {:value => "ARRIVED"}, label:false  %>
+      <%# else %>
+        <div class="heading-section-bottom">
+          <h4> GUEST INFORMATION </h4>
+        </div>
+          <%= f.input :first_name, class: "field-small", placeholder: 'First name', label:false %>
+          <%= f.input :last_name, class: "field-small", placeholder: 'Last name', label:false  %>
+          <%= f.input :email, class: "field-large", placeholder: 'Email', label:false  %>
+          <%= f.input :phone_number, class: "field-large", placeholder: 'Phone number', label:false  %>
+          <%= f.input :reservation_notes, class: "field-xlarge", placeholder: 'Reservation notes', label:false  %>
+          <%= f.input :dietary_requirements, class: "field-xlarge", placeholder: 'Dietary requirements', label:false  %>
+      <%# end %>
+    </div>
+    <div class="button-section">
+      <%= f.submit "SUBMIT", class: "reservation-form-button" %>
+    </div>
+      <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

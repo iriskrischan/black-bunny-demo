@@ -1,0 +1,365 @@
+<div class="reservations_card">
+
+  <div class="d-flex flex-column icon-show" data-controller="arrived-dropdown">
+    <% covers_total = 0 %>
+    <% reservations_total = 0 %>
+    <div class="search-form">
+      <%= form_with url: reservations_path, method: :get, class: "d-flex" do %>
+        <%= text_field_tag :query,
+          @query,
+          class: "form-control",
+          placeholder: "Find a reservation"
+        %>
+        <%= hidden_field_tag :start_date,
+          params[:start_date],
+          class: "form-control",
+          placeholder: "Find a reservation"
+        %>
+        <%= submit_tag "SEARCH", class: "btn-search" %>
+      <% end %>
+    </div>
+    <% if Reservation.where(date: @start_date, status: "ARRIVED").any? %>
+      <div class="reservation-card-seporator" data-arrived-dropdown-target="separatorButtonArrived" data-action="click->arrived-dropdown#dropdownArrived">
+        <h2>ARRIVED</h2>
+        <%= image_tag("arrow_up_icon.png") %>
+      </div>
+      <div data-arrived-dropdown-target="cardCollapseArrived">
+        <% @reservations.each_with_index do |reservation, i| %>
+          <% if reservation.date == start_date %>
+            <% if reservation.status == 'ARRIVED' %>
+              <div data-res-id="<%= reservation.id %>" data-res-edit-id="<%= @reservation_edit.id %>" class="reservation-card d-flex align-items-center" data-controller="show" data-show-target="card" data-action="click->show#showInfo">
+                <div class="reservation-icon" data-change-status-target="icon" data-controller="change-status" data-action="click->change-status#showForm" data-bs-toggle="modal" data-bs-target="#iconModal<%=i%>">
+                  <%= image_tag("arrived_icon.png") %>
+                </div>
+                <div class="modal fade status-modal" id="iconModal<%=i%>" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="client-name d-flex justify-content-between">
+                          <div></div>
+                          Guest: <%= reservation.first_name %> <%= reservation.last_name %>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="update-status-form" data-change-status-target="form">
+                          <form action="reservations/<%= reservation.id %>/status" method="PATCH">
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div>
+                                <select name="reservation[status]"
+                                        id="reservation_status"
+                                        style="border-radius: 20px; padding: 5px; width: 135px; height: 40px; color: #071e21; border: 1px; box-shadow: 0px 0px 1px 1px #00000026; text-align: center;">
+                                  <option value="BOOKED">Booked</option>
+                                  <option value="ARRIVED">Arrived</option>
+                                  <option value="NO-SHOW">No-show</option>
+                                  <option value="CANCELLED">Cancelled</option>
+                                  <option value="FINISHED">Finished</option>
+                                </select>
+                              </div>
+                              <div>
+                               <button type="submit" name="submit" class="btn-standard-status">Update</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="reservation-card-infos d-flex justify-content-between">
+                  <div>
+                    <p><%= reservation.time_slot.start_time.strftime("%I:%M%p") %></p>
+                    <h2><%= reservation.first_name %> <%= reservation.last_name %></h2>
+                  </div>
+                  <div class="d-flex align-items-end">
+                    <h2><%= reservation.covers %> Persons</h2>
+                  </div>
+                </div>
+              </div>
+              <% covers_total = covers_total + reservation.covers %>
+              <% reservations_total = reservations_total + 1 %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="overlap">
+        <h3><%= reservations_total %> (<%= covers_total %>)</h3>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-column icon-show" data-controller="dropdown">
+    <% covers_total = 0 %>
+    <% reservations_total = 0 %>
+    <div class="reservation-card-seporator" data-dropdown-target="separatorButton" data-action="click->dropdown#dropdown">
+      <h2>BOOKED</h2>
+      <%= image_tag("arrow_up_icon.png") %>
+    </div>
+    <div data-dropdown-target="cardCollapse">
+      <% @reservations.each_with_index do |reservation, i| %>
+        <% if reservation.date == start_date %>
+          <% if reservation.status == 'BOOKED' %>
+            <div data-res-id="<%= reservation.id %>" data-res-edit-id="<%= @reservation_edit.id %>" class="reservation-card d-flex align-items-center" data-controller="show" data-show-target="card" data-action="click->show#showInfo">
+              <div class="reservation-icon" data-change-status-target="icon" data-controller="change-status" data-action="click->change-status#showForm" data-bs-toggle="modal" data-bs-target="#iconModal<%=i%>">
+                <%= image_tag("booking_icon_no_white.png") %>
+              </div>
+              <div class="modal fade status-modal" id="iconModal<%=i%>" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="client-name d-flex justify-content-between">
+                        <div></div>
+                        Guest: <%= reservation.first_name %> <%= reservation.last_name %>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="update-status-form" data-change-status-target="form">
+                        <form action="reservations/<%= reservation.id %>/status" method="PATCH">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <select name="reservation[status]"
+                                      id="reservation_status"
+                                      style="border-radius: 20px; padding: 5px; width: 135px; height: 40px; color: #071e21; border: 1px; box-shadow: 0px 0px 1px 1px #00000026; text-align: center;">
+                                <option value="BOOKED">Booked</option>
+                                <option value="ARRIVED">Arrived</option>
+                                <option value="NO-SHOW">No-show</option>
+                                <option value="CANCELLED">Cancelled</option>
+                                <option value="FINISHED">Finished</option>
+                              </select>
+                            </div>
+                            <div>
+                              <button type="submit" name="submit" class="btn-standard-status">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reservation-card-infos d-flex justify-content-between">
+                <div>
+                  <p><%= reservation.time_slot.start_time.strftime("%I:%M%p") %></p>
+                  <h2 class="reservation-customer-name"><%= reservation.first_name %> <%= reservation.last_name %></h2>
+                </div>
+                <div class="d-flex align-items-end">
+                  <h2><%= reservation.covers %> Persons</h2>
+                </div>
+              </div>
+            </div>
+            <% covers_total = covers_total + reservation.covers %>
+            <% reservations_total = reservations_total + 1 %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="overlap">
+      <h3><%= reservations_total %> (<%= covers_total %>)</h3>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column icon-show" data-controller="noshow-dropdown">
+    <% covers_total = 0 %>
+    <% reservations_total = 0 %>
+    <div class="reservation-card-seporator" data-noshow-dropdown-target="separatorButtonNoshow" data-action="click->noshow-dropdown#dropdownNoshow">
+      <h2>NO-SHOW</h2>
+      <%= image_tag("arrow_up_icon.png") %>
+    </div>
+    <div data-noshow-dropdown-target="cardCollapseNoshow">
+      <% @reservations.each_with_index do |reservation, i| %>
+        <% if reservation.date == start_date %>
+          <% if reservation.status == 'NO-SHOW' %>
+            <div data-res-id="<%= reservation.id %>" data-res-edit-id="<%= @reservation_edit.id %>" class="reservation-card d-flex align-items-center" data-controller="show" data-show-target="card" data-action="click->show#showInfo">
+              <div class="reservation-icon" data-change-status-target="icon" data-controller="change-status" data-action="click->change-status#showForm" data-bs-toggle="modal" data-bs-target="#iconModal<%=i%>">
+                <%= image_tag("no_show_icon.png") %>
+              </div>
+              <div class="modal fade status-modal" id="iconModal<%=i%>" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="client-name d-flex justify-content-between">
+                        <div></div>
+                        Guest: <%= reservation.first_name %> <%= reservation.last_name %>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="update-status-form" data-change-status-target="form">
+                        <form action="reservations/<%= reservation.id %>/status" method="PATCH">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <select name="reservation[status]"
+                                      id="reservation_status"
+                                      style="border-radius: 20px; padding: 5px; width: 135px; height: 40px; color: #071e21; border: 1px; box-shadow: 0px 0px 1px 1px #00000026; text-align: center;">
+                                <option value="BOOKED">Booked</option>
+                                <option value="ARRIVED">Arrived</option>
+                                <option value="NO-SHOW">No-show</option>
+                                <option value="CANCELLED">Cancelled</option>
+                                <option value="FINISHED">Finished</option>
+                              </select>
+                            </div>
+                            <div>
+                              <button type="submit" name="submit" class="btn-standard-status">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reservation-card-infos d-flex justify-content-between">
+                <div>
+                  <p><%= reservation.time_slot.start_time.strftime("%I:%M%p") %></p>
+                  <h2><%= reservation.first_name %> <%= reservation.last_name %></h2>
+                </div>
+                <div class="d-flex align-items-end">
+                  <h2><%= reservation.covers %> Persons</h2>
+                </div>
+              </div>
+            </div>
+            <% covers_total = covers_total + reservation.covers %>
+            <% reservations_total = reservations_total + 1 %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="overlap">
+      <h3><%= reservations_total %> (<%= covers_total %>)</h3>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column icon-show" data-controller="cancelled-dropdown">
+    <% covers_total = 0 %>
+    <% reservations_total = 0 %>
+    <div class="reservation-card-seporator" data-cancelled-dropdown-target="separatorButtonCancelled" data-action="click->cancelled-dropdown#dropdownCancelled">
+      <h2>CANCELLED</h2>
+      <%= image_tag("arrow_up_icon.png") %>
+    </div>
+    <div data-cancelled-dropdown-target="cardCollapseCancelled">
+      <% @reservations.each_with_index do |reservation, i| %>
+        <% if reservation.date == start_date %>
+          <% if reservation.status == 'CANCELLED' %>
+            <div data-res-id="<%= reservation.id %>" data-res-edit-id="<%= @reservation_edit.id %>" class="reservation-card d-flex align-items-center" data-controller="show" data-show-target="card" data-action="click->show#showInfo">
+              <div class="reservation-icon" data-change-status-target="icon" data-controller="change-status" data-action="click->change-status#showForm" data-bs-toggle="modal" data-bs-target="#iconModal<%=i%>">
+                <%= image_tag("cancelled_icon.png") %>
+              </div>
+              <div class="modal fade status-modal" id="iconModal<%=i%>" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="client-name d-flex justify-content-between">
+                        <div></div>
+                        Guest: <%= reservation.first_name %> <%= reservation.last_name %>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="update-status-form" data-change-status-target="form">
+                        <form action="reservations/<%= reservation.id %>/status" method="PATCH">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <select name="reservation[status]"
+                                      id="reservation_status"
+                                      style="border-radius: 20px; padding: 5px; width: 135px; height: 40px; color: #071e21; border: 1px; box-shadow: 0px 0px 1px 1px #00000026; text-align: center;">
+                                <option value="BOOKED">Booked</option>
+                                <option value="ARRIVED">Arrived</option>
+                                <option value="NO-SHOW">No-show</option>
+                                <option value="CANCELLED">Cancelled</option>
+                                <option value="FINISHED">Finished</option>
+                              </select>
+                            </div>
+                            <div>
+                              <button type="submit" name="submit" class="btn-standard-status">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reservation-card-infos d-flex justify-content-between">
+                <div>
+                  <p><%= reservation.time_slot.start_time.strftime("%I:%M%p") %></p>
+                  <h2><%= reservation.first_name %> <%= reservation.last_name %></h2>
+                </div>
+                <div class="d-flex align-items-end">
+                  <h2><%= reservation.covers %> Persons</h2>
+                </div>
+              </div>
+            </div>
+            <% covers_total = covers_total + reservation.covers %>
+            <% reservations_total = reservations_total + 1 %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="overlap">
+      <h3><%= reservations_total %> (<%= covers_total %>)</h3>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column icon-show" data-controller="finished-dropdown">
+    <% covers_total = 0 %>
+    <% reservations_total = 0 %>
+    <div class="reservation-card-seporator" data-finished-dropdown-target="separatorButtonFinished" data-action="click->finished-dropdown#dropdownFinished">
+      <h2>FINISHED</h2>
+      <%= image_tag("arrow_up_icon.png") %>
+    </div>
+    <div data-finished-dropdown-target="cardCollapseFinished">
+      <% @reservations.each_with_index do |reservation, i| %>
+        <% if reservation.date == start_date %>
+          <% if reservation.status == 'FINISHED' %>
+            <div data-res-id="<%= reservation.id %>" data-res-edit-id="<%= @reservation_edit.id %>" class="reservation-card d-flex align-items-center" data-controller="show" data-show-target="card" data-action="click->show#showInfo">
+              <div class="reservation-icon" data-change-status-target="icon" data-controller="change-status" data-action="click->change-status#showForm" data-bs-toggle="modal" data-bs-target="#iconModal<%=i%>">
+                <%= image_tag("finished_icon.png") %>
+              </div>
+              <div class="modal fade status-modal" id="iconModal<%=i%>" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="client-name d-flex justify-content-between">
+                        <div></div>
+                        Guest: <%= reservation.first_name %> <%= reservation.last_name %>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="update-status-form" data-change-status-target="form">
+                        <form action="reservations/<%= reservation.id %>/status" method="PATCH">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <select name="reservation[status]"
+                                      id="reservation_status"
+                                      style="border-radius: 20px; padding: 5px; width: 135px; height: 40px; color: #071e21; border: 1px; box-shadow: 0px 0px 1px 1px #00000026; text-align: center; ">
+                                <option value="BOOKED">Booked</option>
+                                <option value="ARRIVED">Arrived</option>
+                                <option value="NO-SHOW">No-show</option>
+                                <option value="CANCELLED">Cancelled</option>
+                                <option value="FINISHED">Finished</option>
+                              </select>
+                            </div>
+                            <div>
+                              <button type="submit" name="submit" class="btn-standard-status">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reservation-card-infos d-flex justify-content-between">
+                <div>
+                  <p><%= reservation.time_slot.start_time.strftime("%I:%M%p") %></p>
+                  <h2><%= reservation.first_name %> <%= reservation.last_name %></h2>
+                </div>
+                <div class="d-flex align-items-end">
+                  <h2><%= reservation.covers %> Persons</h2>
+                </div>
+              </div>
+            </div>
+            <% covers_total = covers_total + reservation.covers %>
+            <% reservations_total = reservations_total + 1 %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="overlap">
+      <h3><%= reservations_total %> (<%= covers_total %>)</h3>
+    </div>
+  </div>
+
+</div>

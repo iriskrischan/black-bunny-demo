@@ -1,0 +1,74 @@
+.simple-calendar1 {
+  z-index: 1 !important; /* Stay on top */
+  top: 72px !important; /* Stay at the top */
+  left: 72px;
+  position: fixed;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Intel', sans-serif;
+  }
+
+  table {
+    border-spacing: 8px;
+    border: none !important;
+    border-collapse: separate !important;
+    padding: 0px !important;
+  }
+
+  .table > :not(caption) > * > * {
+    padding: 8px !important;
+  }
+
+  .tr, th {
+    font-size: 25px;
+    font-weight: lighter;
+    width: 1080px;
+    text-align: center !important;
+    font-family: 'Intel', sans-serif;
+    border: 0px !important;
+    color: #071E21;
+  }
+
+  td {
+    border: 0px !important;
+  }
+
+  .td, h4 {
+    text-align: end;
+  }
+
+  .td, ul {
+    padding-left: 0%;
+    margin-bottom: 0 !important;
+  }
+
+  .today {
+    background: #BCE8F0 !important;
+  }
+
+  .prev-month, .next-month {
+    background: #d9d9d9;
+    box-shadow: 0px 0px 1px 1px #00000026;
+    border-radius: 20px;
+  }
+
+  .current-month {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 1px 1px #00000026;
+    border-radius: 20px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 0.8 !important;
+    font-size: 40px !important;
+    color: #071E21;
+  }
+
+  li {
+    margin-bottom: 0 !important;
+    color: #071E21;
+  }
+
+}

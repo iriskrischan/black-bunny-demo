@@ -1,0 +1,10 @@
+<div class="simple-calendar">
+  <div class="calendar-heading">
+
+    <%= link_to t('simple_calendar.previous', default: image_tag("arrow_left.png")), calendar.url_for_previous_view, class: "btn-left-arrow" %>
+    <%= link_to dashboard_path do %>
+      <span class="calendar-title btn-flat"><%= t('date.abbr_day_names')[start_date.wday] %>. <%= t('date.month_names')[start_date.month] %> <%= start_date.day %></span>
+    <% end %>
+    <%= link_to t('simple_calendar.next', default: image_tag("arrow_right.png")), calendar.url_for_next_view, class: "btn-right-arrow" %>
+  </div>
+</div>

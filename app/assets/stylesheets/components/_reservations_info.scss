@@ -1,0 +1,126 @@
+.reservations-info {
+  width: calc(50% - 52px); /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  top: 80px;
+  left: calc(50% + 44px);
+  bottom: 8px;
+  background-color: white; /* White */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  border-radius: 20px; /* Corner radius */
+  box-shadow: 0px 0px 1px 1px #00000026;
+
+  .header {
+    text-align: center;
+    color: #071E21;
+    font-family: 'Intel', sans-serif;
+  }
+
+}
+
+.reservation-info {
+
+  label {
+    color: #071E21;
+    margin-bottom: 8px;
+    font-family: 'Intel', sans-serif;
+  }
+}
+.form-active {
+
+  padding: 0px;
+  margin: 0px;
+
+  form {
+    margin: 0px;
+  }
+
+  .form-control {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0px 0px 1px 1px #00000026;
+    width: 100%;
+    background: #F4F4F4;
+  }
+
+  .form-select {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0px 0px 1px 1px #00000026;
+    width: 100%;
+    background: #F4F4F4 !important;
+  }
+
+  #reservation_covers {
+    background: #F4F4F4 !important;
+  }
+
+  .reservation_covers {
+    color: #071E21;
+    margin-bottom: 8px;
+    font-family: 'Intel', sans-serif;
+  }
+
+  .date_input {
+    color: #071E21;
+    margin-bottom: 8px;
+    font-family: 'Intel', sans-serif;
+  }
+
+  .form-label {
+    color: #071E21;
+    margin-bottom: 8px;
+    font-family: 'Intel', sans-serif;
+  }
+
+  #date-input {
+    background: #F4F4F4 !important;
+  }
+
+  h4 {
+    text-align: center;
+    color: #071E21;
+    font-family: 'Intel', sans-serif;
+    font-size: 22px;
+  }
+
+  .guest-info {
+
+    h2 {
+      margin-bottom: 8px;
+      text-align: center;
+      color: #071E21;
+    }
+}
+
+  .top-section {
+    height: 125px;
+  }
+
+  .reservation-form-button {
+    margin-top: 0;
+  }
+
+  .form-control:focus {
+    border-color: #ced4da; /* default B5 color or set your own color*/
+    border: none !important; /* if you want to remove borders at all*/
+    outline: none !important;
+    box-shadow: 0px 0px 1px 1px #00000026 !important;
+  }
+
+}
+
+.reservation_first_name {
+
+  input  {
+    border-radius: 20px;
+    border: none;
+    border-color: none;
+    box-shadow: 0px 0px 1px 1px #00000026;
+    color: #071E21;
+    font-family: 'Intel', sans-serif;
+    background-color: #F4F4F4 !important;
+    background: url("") no-repeat left !important;
+  }
+
+}

@@ -1,0 +1,84 @@
+.login-container {
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
+.login-form {
+  width: 500px;
+  height: 470px;
+  border-radius: 20px;
+  background-color: #E8E8E8;
+  border: 1px;
+  box-shadow: 0px 0px 1px 1px #00000026;
+  font-family: 'Intel', sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0px auto;
+
+  .form-select {
+    border-radius: 20px;
+  }
+
+  .form-control {
+    border-radius: 20px;
+  }
+
+  .form-control:focus {
+    border-color: #ced4da; /* default B5 color or set your own color*/
+    border: none !important; /* if you want to remove borders at all*/
+    outline: none !important;
+    box-shadow: 0px 0px 1px 1px #00000026 !important;
+  }
+}
+
+
+.login-button-section {
+  display: flex;
+  justify-content: center;
+}
+
+.login-button-section-2 {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form-button {
+  padding: 10px 40px;
+  background-color: #1F7A8C;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 0px 1px 1px #00000026;
+}
+
+.login-form-button:hover {
+  background-color: #175c6a;
+  color: white;
+}
+
+.login-top-section {
+  display: block;
+  height: 157px;
+  margin: 0px auto;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.login-form-button-forgot {
+  padding: 10px 30px;
+  background-color: #838383;
+  opacity: 70%;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 0px 1px 1px #00000026;
+}
+
+.login-form-button-forgot:hover {
+  background-color: #303030;
+  color: white;
+}
