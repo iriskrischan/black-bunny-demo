@@ -1,1 +1,3 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+<h1>What you need to know</h1>
+This is a hospitality platform which integrates online reservations with real-time book-in requests and consolidates them for further marketing and data purposes. 
+This is a joint project, and here is the original project GitHub: https://github.com/papadimon/black-bunny 
